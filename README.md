@@ -22,13 +22,13 @@ In this section, we will demonstrate how to perform bulk data deconvolution usin
 
 ### Section 3.1: Quick Start
 
-We provide a small demo data [here](https://github.com/XWangLabTHU/ARIC/tree/main/demo_data). 
+We provide a small demo data [here](https://github.com/XWangLabTHU/ARIC/tree/main/data/demo). 
 There are two main files in csv format. One saves the mixture bulk data and another saves external reference data. Just put the file path to the function "**ARIC**", and the program will do every thing.
 
 ```python
 from ARIC import *
 
-ARIC(ref_path="ref.csv", mix_path="mix.csv")
+ARIC(mix_path="mix.csv", ref_path="ref.csv")
 ```
 
 ### Section 3.2: Function Introduction
@@ -36,22 +36,21 @@ ARIC(ref_path="ref.csv", mix_path="mix.csv")
 The main function in ARIC is **decipher**.
 
 ```Python
-decipher(ref_path, mix_path, save_path='prop_predict.csv', 
-         marker_path='', scale=0.1, delcol_factor=10, 
-         iter_num=10, confidence=0.75, w_thresh=10, 
-         unknown=False, is_markers=False, is_methylation=False)
+ARIC(mix_path, ref_path, save_path=None, marker_path=None, 
+     selected_marker=False, scale=0.1, delcol_factor=10,
+     iter_num=10, confidence=0.75, w_thresh=10, 
+     unknown=False, is_methylation=False)
 ```
 
-+ **'ref_path'**: Path to reference csv file. The first row should be the name of cell types and the first column should be marker names. 
-+ **'mix_path'**: Path to mixture csv file. The first row should be the samples id and the first column corresponds to the marker names.
-+ **'save_path'**: Path to save the deconvolution results.
-+ **'marker_path'**: Path to user provided markers. In csv file, one column. 
-+ **'scale'**: Control the stop criterion for the SVR, smaller scale means earlier stop. We recommend scale=0.1 for RNA-Seq and scale=1 for methylation. default = 0.1.
-+ **'delcol_factor'**: larger values means less loops in the eliminating collinearity part. It should be in the range from 2 to 20. default=10.
-+ **'iter_num'**: The number of loops in the outlier detection process. default=10.
-+ **'confidence'**: The ratio of markers treated as normal points in the first outlier detection loop. It should be in [0, 1]. default=0.75. 
-+ **'w_thresh'**: The threshold used to cut weights which are too large. default=10.
-+ **'unknown'**: If there is unknown component in the mixture data. default=False.
-+ **'is_markers'**: False if users choose to select markers by ARIC. default=False
-+ **'is_methylation'**: If the data is methylation data. default=False
-
++ **'mix_path'**: Path to mixture data, must be an csv file with colnames and rownames.
++ **'ref_path'**: Path to reference data, must be an csv file with colnames and rownames.
++ **'save_path'**: Where to save the deconvolution results. Default: mix_path_prefix_prop.csv.
++ **'marker_path'**: Path to the user specificed markers. Must be an csv file.
++ **'selected_marker'**: Output selected marker for every sample. Marker files will be saved in a folder named "sample_marker.csv".
++ **'scale'**: Used for controlling the convergence of SVR. A smaller value makes the convergence much faster. Default: 0.1.
++ **'delcol_factor'**: Used for controlling the extent of removing collinearity. Default: 10.
++ **'iter_num'**: Iterative numbers of outliers detection. Default: 10.
++ **'confidence'**: Ratio of remained markers in each outlier detection loop. Default: 0.75.
++ **'w_thresh'**: Threshold to cut the weights designer. Default: 10.
++ **'unknown'**: Whether to estimate unknown content proportion.
++ **'is_methylation'**: Whether the data type belongs to methylation data. If true, preliminary marker selection will be performed.
