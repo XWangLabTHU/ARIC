@@ -21,7 +21,7 @@ setup(
     keywords=("pip", "ARIC"),
     description="ARIC: Accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data",
     license="GPL V3",
-    url="",
+    url="https://xwanglabthu.github.io/ARIC/",
     author="Wei Zhang, Hanwen Xu",
     author_email="w-zhang16@mails.tsinghua.edu.cn, xuhw20@mails.tsinghua.edu.cn",
     packages=find_packages(),
