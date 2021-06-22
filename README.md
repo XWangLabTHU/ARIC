@@ -54,3 +54,110 @@ ARIC(mix_path, ref_path, save_path=None, marker_path=None,
 + **'w_thresh'**: Threshold to cut the weights designer. Default: 10.
 + **'unknown'**: Whether to estimate unknown content proportion.
 + **'is_methylation'**: Whether the data type belongs to methylation data. If true, preliminary marker selection will be performed.
+
+
+## Section 4: Applications on TCGA Ovarian Cancer
+
+In this part, we will demonstrate how to use ARIC for ovarian cancer patients' classification. Users can follow the below instruction to reproduce the results in our article.
+
+Ovarian cancer patients data with survival information can be downloaded from (LinkedOmics)[http://linkedomics.org/login.php] directly. LM22 reference data can be downloaded from (CIBERTSORT)[https://www.nature.com/articles/nmeth.3337]. The survival information will be saved in file "Human__TCGA_OV__MS__Clinical__Clinical__01_28_2016__BI__Clinical__Firehose.tsi".
+
+We provide the scaled data and survival information [here](https://github.com/XWangLabTHU/ARIC/tree/main/data/TCGA_OV). 
+
+### Section 4.1: Deconvolution for All Patients
+
+First, put "mix_scaled.csv" and "ref_scaled.csv" to your folder.
+
+```Python
+from ARIC import *
+
+ARIC(mix_path="mix_scaled.csv", ref_path="ref_scaled.csv", save_path="ov_ARIC.csv",
+     selected_marker=True)
+
+```
+
+Then, wait for the deconvolution done.
+
+```Python
+---------------------------------------------
+--------------WELCOME TO ARIC----------------
+---------------------------------------------
+Data reading finished!
+ARIC Engines Start, Please Wait......
+100%|█████████████████████████████████████████████████████████████| 514/514 [01:14<00:00,  6.89it/s]
+Deconvo Results Saving!
+Finished!
+```
+
+There will be 2 main outputs. The first one is estimated proportion file named "ov_ARIC.csv". The second is a folder named "mix_scaled" (the same name with the input mixture file). All the markers selected by ARIC for each sample will be saved in folder "mix_scaled".
+
+### Section 4.2: Survival Analysis
+
+Then, we perform survival analysis based on R package "survival" and "survminer".
+
+```R
+library(survival)
+library(survminer)
+library(tidyr)
+library(gridExtra)
+
+# import survival information
+sur_info <- read.table(file = "Human__TCGA_OV__MS__Clinical__Clinical__01_28_2016__BI__Clinical__Firehose.tsi", header = TRUE, row.names = 1)
+tmp_rowname <- rownames(sur_info)
+
+data <- read.csv(file = "ov_ARIC.csv", header = TRUE, row.names = 1)
+
+selected_celltype <- c("T.cells.CD8", "T.cells.gamma.delta", 
+                       "Macrophages.M1", "NK.cells.resting", "NK.cells.activated")
+
+data <- data[selected_celltype, ]
+data <- colSums(x = data)
+prop_median <- median(data)
+
+high_risk <- names(data)[which(data <= prop_median)]
+low_risk <- names(data)[which(data > prop_median)]
+
+label <- rep(x = "tumor", times = ncol(sur_info))
+names(label) <- colnames(sur_info)
+idx_high <- which(names(label) %in% high_risk)
+label[idx_high] <- "high"
+idx_low <- which(names(label) %in% low_risk)
+label[idx_low] <- "low"
+
+sur_info <- rbind(sur_info, label)
+rownames(sur_info) <- c(tmp_rowname, "risk")
+
+sur_info <- as.data.frame(t(sur_info[, which(colnames(sur_info) %in% names(data))]))
+
+sur_info <- drop_na(data = sur_info, c("overall_survival", "status"))
+sur_info <- transform(sur_info, overall_survival = as.numeric(overall_survival))
+sur_info <- transform(sur_info, status = as.numeric(status))
+
+fit <- survfit(Surv(overall_survival, status) ~ risk, data=sur_info)
+ggsurvplot(fit, pval = TRUE, conf.int = TRUE)
+
+res_cox <- coxph(Surv(overall_survival, status) ~ risk, data=sur_info)
+
+summary(res_cox)$conf.int
+
+```
+
+Then, we can get the survival curve and hazard ratio like below.
+
+```
+        exp(coef) exp(-coef) lower .95 upper .95
+risklow 0.7424766   1.346844  0.593249 0.9292413
+```
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="./data/Fig/ARIC.png">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">ARIC Predicted OV patients' survival curve</div>
+</center>
+
+<br/>
