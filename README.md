@@ -161,3 +161,10 @@ risklow 0.7424766   1.346844  0.593249 0.9292413
 </center>
 
 <br/>
+
+
+## Citation
+
+Zhang, Wei, et al. "ARIC: Accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data." bioRxiv (2021).
+
+
