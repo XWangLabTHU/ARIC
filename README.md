@@ -60,7 +60,7 @@ ARIC(mix_path, ref_path, save_path=None, marker_path=None,
 
 In this part, we will demonstrate how to use ARIC for ovarian cancer patients' classification. Users can follow the below instruction to reproduce the results in our article.
 
-Ovarian cancer patients data with survival information can be downloaded from (LinkedOmics)[http://linkedomics.org/login.php] directly. LM22 reference data can be downloaded from (CIBERTSORT)[https://www.nature.com/articles/nmeth.3337]. The survival information will be saved in file "Human__TCGA_OV__MS__Clinical__Clinical__01_28_2016__BI__Clinical__Firehose.tsi".
+Ovarian cancer patients data with survival information can be downloaded from [LinkedOmics](http://linkedomics.org/login.php) directly. LM22 reference data can be downloaded from [CIBERTSORT](https://www.nature.com/articles/nmeth.3337). The survival information will be saved in file "Human__TCGA_OV__MS__Clinical__Clinical__01_28_2016__BI__Clinical__Firehose.tsi".
 
 We provide the scaled data and survival information [here](https://github.com/XWangLabTHU/ARIC/tree/main/data/TCGA_OV). 
 
@@ -108,7 +108,8 @@ tmp_rowname <- rownames(sur_info)
 data <- read.csv(file = "ov_ARIC.csv", header = TRUE, row.names = 1)
 
 selected_celltype <- c("T.cells.CD8", "T.cells.gamma.delta", 
-                       "Macrophages.M1", "NK.cells.resting", "NK.cells.activated")
+                       "Macrophages.M1", "NK.cells.resting", 
+                       "NK.cells.activated")
 
 data <- data[selected_celltype, ]
 data <- colSums(x = data)
