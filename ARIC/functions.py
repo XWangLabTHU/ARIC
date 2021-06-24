@@ -164,7 +164,6 @@ def RobustSVR(
         np.zeros([tissueNum, numOfSamples]) if unknown == False else np.zeros([tissueNum + 1, numOfSamples])
     )
     for i in range(numOfSamples):
-
         iterReference = reference
         itermixtureData = mixtureData[:, i]
         mixture = sm.RLM(itermixtureData, iterReference).fit()

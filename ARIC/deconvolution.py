@@ -58,6 +58,7 @@ def ARIC(
     samples = mix.columns.values
     prop = collections.OrderedDict()
     prop["cell types"] = cell_type
+    
     if marker_path is not None:
         reference = []
         mixture = []
