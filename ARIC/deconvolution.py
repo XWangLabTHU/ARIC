@@ -52,6 +52,8 @@ def ARIC(
     if selected_marker:
         tmppath = os.path.splitext(mix_path)[0]
         os.makedirs(tmppath, exist_ok=True)
+    else:
+        tmppath = None
 
     raw_markers = list(ref.index)
     cell_type = ref.columns.values
