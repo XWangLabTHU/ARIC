@@ -1,5 +1,19 @@
 # ARIC
 
+* [Section 1: Introduction](#section-1-introduction)
+* [Section 2: Installation Tutorial](#section-2-installation-tutorial)
+     * [Section 2.1: System requirement](#section-21-system-requirement)
+     * [Section 2.2: Installation](#section-22-installation)
+* [Section 3: A Quick Tutorial for Demo data Deconvolution](#section-3-a-quick-tutorial-for-demo-data-deconvolution)
+     * [Section 3.1: Quick Start](#section-31-quick-start)
+     * [Section 3.2: Function Introduction](#section-32-function-introduction)
+* [Section 4: Applications on TCGA Ovarian Cancer](#section-4-applications-on-tcga-ovarian-cancer)
+     * [Section 4.1: Deconvolution for All Patients](#section-41-deconvolution-for-all-patients)
+     * [Section 4.2: Survival Analysis](#section-42-survival-analysis)
+* [Section 5: Computational Efficiency Comparison](#section-5-computational-efficiency-comparison)
+* [Citation](#citation)
+
+
 ## Section 1: Introduction
 
 **<font color=red>ARIC</font>** is a bioinfomatics software for bulk gene expression and DNA methylation data deconvolution. ARIC utilizes a novel two-step marker selection strategy, including **component-wise condition number-based feature collinearity elimination** and **adaptive outlier markers removal**. This strategy can systematically obtain effective markers that ensure a robust and precise **weighted υ-SVR-based** rare proportion prediction.
