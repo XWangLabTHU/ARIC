@@ -164,6 +164,28 @@ risklow 0.7424766   1.346844  0.593249 0.9292413
 <br/>
 
 
+## Section 5: Computational Efficiency Comparison
+
+
+Computational efficiency is largely influenced by marker number. Therefore, we compared the computation time with both different methods and different marker number. 
+
+We generated in silico mixed gene expression data with different marker number (100, 500, 1000, 2000, 5000, 7000 and 10000). In order to get a reliable result, we generated 10 datasets and each dataset had 50 samples for each situation with different marker number. We compared the mean computation time for 50 samples and summarized the results in the following table. 
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="./data/Fig/bib_table.png">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">Computational Efficiency Comparison</div>
+</center>
+
+<br/>
+
+ARIC needs to compute component-wise condition number after removing each collinearity marker. Therefore, the computational time will be longer than matrix operation-based methods like dtangle and deconRNAseq. We adopted python to implement ARIC to accelerate. In addition, with the increase of marker number, computational time growth in some method, especially for CIBERSORT. Thus, we strongly recommended filtering low quality markers before deconvolution. We have updated the github document about these simulation results.
+
 ## Citation
 
 Zhang, Wei, et al. "ARIC: Accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data." bioRxiv (2021).
