@@ -181,9 +181,9 @@ risklow 0.7424766   1.346844  0.593249 0.9292413
 ## Section 5: Computational Efficiency Comparison
 
 
-Computational efficiency is largely influenced by marker number. Therefore, we compared the computation time with both different methods and different marker number. 
+Computational efficiency is largely influenced by the number of markers. Therefore, we compared the computation time with both different methods and different marker numbers.
 
-We generated in silico mixed gene expression data with different marker number (100, 500, 1000, 2000, 5000, 7000 and 10000). In order to get a reliable result, we generated 10 datasets and each dataset had 50 samples for each situation with different marker number. We compared the mean computation time for 50 samples and summarized the results in the following table. 
+We generated in silico mixed gene expression data with different marker numbers (100, 500, 1000, 2000, 5000, 7000 and 10000). In order to get a reliable result, we generated 10 datasets and each dataset had 50 samples for each situation with different marker numbers. We compared the mean computation time for 50 samples and summarized the results in the foloowing table.
 
 <center>
     <img style="border-radius: 0.3125em;
@@ -198,7 +198,7 @@ We generated in silico mixed gene expression data with different marker number (
 
 <br/>
 
-ARIC needs to compute component-wise condition number after removing each collinearity marker. Therefore, the computational time will be longer than matrix operation-based methods like dtangle and deconRNAseq. We adopted python to implement ARIC to accelerate. In addition, with the increase of marker number, computational time growth in some method, especially for CIBERSORT. Thus, we strongly recommended filtering low quality markers before deconvolution. We have updated the github document about these simulation results.
+ARIC needs to compute component-wise condition number after removing each collinearity marker. Therefore, the computational time will be longer than matrix operation-based methods like dtangle and deconRNAseq. The computational efficiencies of ARIC, EPIC and FARDEEP are at the same level. In addition, computational time of CIBERSORT growth drastically with the increase of marker number. Thus, we strongly recommended filtering low quality markers before deconvolution.
 
 ## Citation
 
