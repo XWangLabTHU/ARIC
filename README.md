@@ -202,6 +202,15 @@ ARIC needs to compute component-wise condition number after removing each collin
 
 ## Citation
 
-Zhang, Wei, et al. "ARIC: Accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data." bioRxiv (2021).
+@article{zhang2022aric,
+  title={ARIC: accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data},
+  author={Zhang, Wei and Xu, Hanwen and Qiao, Rong and Zhong, Bixi and Zhang, Xianglin and Gu, Jin and Zhang, Xuegong and Wei, Lei and Wang, Xiaowo},
+  journal={Briefings in Bioinformatics},
+  volume={23},
+  number={1},
+  pages={bbab362},
+  year={2022},
+  publisher={Oxford University Press}
+}
 
 
