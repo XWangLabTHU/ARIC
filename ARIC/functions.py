@@ -67,7 +67,7 @@ def DECONVO(
             collinearity = np.abs(selectReference[:, closetJ] - selectReference[:, closetK]) / (sumData)
             collinearityIndex = np.argsort(collinearity)
             area = np.ones(np.size(selectReference, 0))
-            area = area.astype(np.bool)
+            area = area.astype(np.bool_)
             area[collinearityIndex[0]] = False
             selectArea = np.arange(np.size(selectReference, 0))
             selectArea = selectArea[area]
@@ -308,7 +308,7 @@ def pre_marker_select(reference, mixtureData):
     markerNumber = np.size(reference, 0)
     selectedCpG = np.arange(markerNumber)
     area = np.zeros(markerNumber)
-    area = area.astype(np.bool)
+    area = area.astype(np.bool_)
     for i in range(cellTypeNumber):
         for j in range(i + 1, cellTypeNumber):
             temp = reference[:, [i, j]]
