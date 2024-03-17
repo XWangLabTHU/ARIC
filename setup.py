@@ -17,7 +17,7 @@ def read(fname):
 
 setup(
     name="ARIC",
-    version="0.1.1",
+    version="1.0.1",
     keywords=("pip", "ARIC"),
     description="ARIC: Accurate and robust inference of cell type proportions from bulk gene expression or DNA methylation data",
     license="GPL V3",
