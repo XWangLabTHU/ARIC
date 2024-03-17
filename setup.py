@@ -28,5 +28,5 @@ setup(
     include_package_data=True,
     platforms="any",
     long_description=read("README.rst"),
-    install_requires=["numpy", "tqdm", "scipy", "sklearn", "statsmodels", "pandas"],
+    install_requires=["numpy", "tqdm", "scipy", "scikit-learn", "statsmodels", "pandas"],
 )
