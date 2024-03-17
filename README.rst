@@ -8,3 +8,5 @@ The first test version.
 version 0.1.0, 2021.07.16
 Add function to output all the markers.
 
+version 0.1.1, 2024.03.17
+Chang the package dependency.
